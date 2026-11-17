@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111">
+  <meta name="description" content="Clarus — ruang digital kelas X-1 SMA Negeri Modal Bangsa untuk berbagi cerita, agenda, dan momen kebersamaan.">
+  <title>Clarus — Kelas X-1 | SMA Negeri Modal Bangsa</title>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #111722;
+      --paper: #f8fafc;
+      --soft: #edf2f7;
+      --muted: #6e7885;
+      --line: #dce3eb;
+      --sky: #73c5f3;
+      --sky-dark: #287eaf;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Segoe UI", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 85px; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    img { display: block; max-width: 100%; }
+    .wrap { width: min(1160px, calc(100% - 56px)); margin-inline: auto; }
+
+    .school-line { background: var(--ink); color: white; }
+    .school-line-inner { display: flex; min-height: 34px; align-items: center; justify-content: space-between; gap: 14px; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; }
+    .school-name { display: inline-flex; align-items: center; gap: 7px; }
+    .school-logo { width: 20px; height: 20px; flex: 0 0 20px; object-fit: contain; }
+    .school-line-inner span:last-child { color: #aaa; }
+    .topbar { position: sticky; z-index: 10; top: 0; border-bottom: 1px solid rgba(17,17,17,.1); background: rgba(255,255,255,.95); backdrop-filter: blur(14px); }
+    .nav { display: flex; min-height: 75px; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; }
+    .brand-mark { display: block; width: 44px; height: 44px; flex: 0 0 44px; object-fit: contain; }
+    .brand-copy { display: grid; gap: 3px; }
+    .brand-copy strong { font-family: var(--serif); font-size: 17px; font-weight: 500; letter-spacing: -.03em; }
+    .brand-copy span { color: var(--muted); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 27px; color: #444; font-size: 11px; font-weight: 650; }
+    .nav-links a:hover { color: var(--sky-dark); }
+    .nav-cta { display: inline-flex; min-height: 39px; align-items: center; gap: 12px; padding: 0 14px; border: 1px solid var(--ink); font-size: 10px; font-weight: 700; transition: background .2s, color .2s; }
+    .nav-cta:hover { background: var(--ink); color: white; }
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
+    .nav-actions .nav-cta { min-width: 121px; justify-content: center; }
+    .nav-login { background: var(--ink); color: white; }
+    .nav-login:hover { border-color: var(--sky-dark); background: var(--sky); color: var(--ink); }
+    .menu-toggle { display: none; border: 0; background: none; color: var(--ink); font-size: 24px; cursor: pointer; }
+
+    .page-view:not(.is-active) { display: none; }
+    .page-view.is-active { animation: page-enter .24s ease-out; }
+    @keyframes page-enter {
+      from { opacity: .65; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .blank-page { min-height: calc(100vh - 181px); }
+    .home-page { padding: 46px 0 74px; }
+    .profile-page { padding: 0 0 74px; }
+    .profile-hero { position: relative; overflow: hidden; padding: 48px 0 44px; background-color: #111722; background-image: radial-gradient(circle at 12% 24%, rgba(255,255,255,.5) 0 1px, transparent 1.7px), radial-gradient(circle at 72% 18%, rgba(115,197,243,.55) 0 1px, transparent 1.8px), radial-gradient(circle at 91% 66%, rgba(255,255,255,.4) 0 1px, transparent 1.7px), radial-gradient(ellipse at 82% 4%, rgba(38,113,158,.32), transparent 42%); background-size: 180px 150px, 230px 190px, 270px 210px, auto; color: white; }
+    .profile-hero::after { position: absolute; top: 26px; right: 12%; width: 5px; height: 5px; border-radius: 50%; background: var(--sky); box-shadow: 55px 25px 0 -1px rgba(255,255,255,.8), -42px 58px 0 -1px rgba(115,197,243,.8), 34px 103px 0 -2px white; content: ""; animation: star-glow 3.2s ease-in-out infinite alternate; }
+    @keyframes star-glow { from { opacity: .35; transform: scale(.8); } to { opacity: 1; transform: scale(1.25); } }
+    .profile-hero .wrap { position: relative; z-index: 1; }
+    .profile-hero .eyebrow { margin-bottom: 12px; color: var(--sky); }
+    .profile-hero h1 { margin-bottom: 12px; font-family: var(--sans); font-size: clamp(36px, 4.5vw, 52px); font-weight: 700; letter-spacing: -.05em; }
+    .profile-hero p:last-child { max-width: 610px; margin-bottom: 0; color: #c3ceda; font-size: 12px; line-height: 1.8; }
+    .profile-content { padding-top: 56px; }
+    .profile-values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .profile-value { position: relative; display: flex; min-height: 220px; flex-direction: column; justify-content: end; padding: 23px; overflow: hidden; background: #162434; color: white; transition: transform .25s, box-shadow .25s; }
+    .profile-value:hover { transform: translateY(-4px); box-shadow: 0 12px 25px rgba(17,23,34,.14); }
+    .profile-value::before { position: absolute; top: -55px; right: -25px; width: 185px; height: 185px; border: 1px solid rgba(115,197,243,.22); border-radius: 50%; box-shadow: 0 0 0 18px rgba(115,197,243,.045), 0 0 0 42px rgba(115,197,243,.035); content: ""; transition: transform .5s ease; }
+    .profile-value:hover::before { transform: scale(1.13) rotate(12deg); }
+    .profile-value:nth-child(2) { background: #1a2835; }
+    .profile-value:nth-child(3) { background: #202a35; }
+    .profile-value-number { position: absolute; top: 19px; left: 22px; color: var(--sky); font-family: var(--serif); font-size: 14px; }
+    .profile-value h3 { position: relative; max-width: 250px; margin-bottom: 8px; font-family: var(--serif); font-size: 22px; font-weight: 400; }
+    .profile-value p { position: relative; max-width: 280px; margin-bottom: 0; color: #c1cbd4; font-size: 10px; line-height: 1.75; }
+    .teacher-section { margin-top: 66px; padding: 48px; background: var(--soft); }
+    .teacher-grid { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: 46px; }
+    .teacher-portrait { position: relative; display: grid; min-height: 290px; place-items: center; overflow: hidden; background: linear-gradient(145deg, #dce5ed, #c5d3df); }
+    .teacher-portrait::before, .teacher-portrait::after { position: absolute; width: 230px; height: 230px; border: 1px solid rgba(40,126,175,.22); border-radius: 50%; content: ""; }
+    .teacher-portrait::after { width: 285px; height: 285px; }
+    .teacher-initial { position: relative; z-index: 1; display: grid; width: 96px; height: 96px; place-items: center; border: 1px solid rgba(40,126,175,.32); border-radius: 50%; background: rgba(248,250,252,.72); color: var(--sky-dark); font-family: var(--serif); font-size: 34px; }
+    .teacher-caption { position: absolute; z-index: 2; right: 13px; bottom: 13px; left: 13px; padding: 10px 12px; background: rgba(248,250,252,.9); color: #55616e; text-align: center; font-size: 9px; }
+    .teacher-copy .eyebrow { margin-bottom: 13px; }
+    .teacher-copy h2 { margin-bottom: 17px; font-size: clamp(31px, 3.8vw, 44px); }
+    .teacher-copy p { margin-bottom: 13px; color: #626d79; font-size: 11px; line-height: 1.9; }
+    .teacher-name { display: block; margin-top: 20px; font-family: var(--serif); font-size: 18px; }
+    .teacher-role { display: block; margin-top: 4px; color: var(--muted); font-size: 9px; }
+    .profile-mission { display: grid; grid-template-columns: .8fr 1.2fr; gap: 50px; margin-top: 65px; }
+    .profile-mission h2 { font-size: clamp(34px, 4vw, 47px); }
+    .mission-list { display: grid; }
+    .mission-item { display: grid; grid-template-columns: 35px 1fr; gap: 13px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+    .mission-item:first-child { border-top: 1px solid var(--line); }
+    .mission-item span { color: var(--sky-dark); font-family: var(--serif); font-size: 13px; }
+    .mission-item p { margin: 0; color: #56616d; font-size: 11px; line-height: 1.7; }
+    .profile-chant { position: relative; margin-top: 65px; padding: 30px 32px; overflow: hidden; background: #111722; color: white; }
+    .profile-chant::after { position: absolute; top: -80px; right: 5%; width: 230px; height: 230px; border: 1px solid rgba(115,197,243,.19); border-radius: 50%; box-shadow: 0 0 0 24px rgba(115,197,243,.04), 0 0 0 52px rgba(115,197,243,.03); content: ""; }
+    .profile-chant .strip-lead { margin-bottom: 12px; }
+    .profile-chant .class-chant { position: relative; z-index: 1; font-size: clamp(22px, 3vw, 31px); }
+    .login-page { min-height: calc(100vh - 181px); padding: 64px 0 80px; }
+    .login-layout { display: grid; max-width: 930px; grid-template-columns: 1fr .9fr; align-items: center; gap: 62px; margin: 0 auto; }
+    .login-intro .eyebrow { margin-bottom: 15px; }
+    .login-intro h1 { margin-bottom: 15px; font-size: clamp(42px, 5vw, 60px); }
+    .login-intro > p:last-child { max-width: 390px; margin-bottom: 0; color: var(--muted); font-size: 12px; line-height: 1.85; }
+    .login-card { padding: 32px; border: 1px solid var(--line); background: white; box-shadow: 0 18px 50px rgba(17,23,34,.08); }
+    .login-card h2 { margin-bottom: 7px; font-family: var(--sans); font-size: 22px; font-weight: 700; letter-spacing: -.03em; }
+    .login-card-intro { margin-bottom: 24px; color: var(--muted); font-size: 10px; line-height: 1.7; }
+    .login-field { display: grid; gap: 7px; margin-bottom: 16px; }
+    .login-field label { font-size: 10px; font-weight: 700; }
+    .login-field input { width: 100%; min-height: 43px; padding: 0 12px; border: 1px solid var(--line); border-radius: 0; outline: 0; background: #fbfcfd; color: var(--ink); font: inherit; font-size: 11px; }
+    .login-field input:focus { border-color: var(--sky-dark); box-shadow: 0 0 0 3px #dff3fd; }
+    .login-submit { width: 100%; margin-top: 3px; cursor: pointer; }
+    .login-notice { margin: 15px 0 0; padding: 11px 12px; border-left: 2px solid var(--sky-dark); background: #eef8fd; color: #40586a; font-size: 9px; line-height: 1.65; }
+    .login-status { min-height: 18px; margin: 11px 0 0; color: #8a4c23; font-size: 10px; line-height: 1.6; }
+    .login-account { padding: 14px; border: 1px solid #c5e7f8; background: #edf8fe; }
+    .login-account strong { color: #1d5e83; }
+    .login-logout { min-height: 36px; margin-top: 12px; cursor: pointer; }
+    .chat-lock { display: flex; align-items: start; gap: 12px; margin-top: 24px; padding-top: 19px; border-top: 1px solid var(--line); }
+    .chat-lock-icon { display: grid; width: 33px; height: 33px; flex: 0 0 33px; place-items: center; border: 1px solid #c5e7f8; background: #edf8fe; color: var(--sky-dark); font-size: 14px; }
+    .chat-lock strong { display: block; margin-bottom: 4px; font-size: 10px; }
+    .chat-lock p { margin: 0; color: var(--muted); font-size: 9px; line-height: 1.6; }
+    .hero { padding: 25px 0 0; }
+    .hero-grid { display: grid; min-height: 515px; grid-template-columns: .92fr 1.08fr; background: linear-gradient(135deg, #e8eef5, #f8fafc 58%, #e8f4fb); }
+    .hero-copy { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: start; justify-content: center; padding: 56px 10px 56px 9%; }
+    .eyebrow { display: flex; align-items: center; gap: 9px; margin: 0 0 20px; color: var(--sky-dark); font-size: 9px; font-weight: 750; letter-spacing: .17em; text-transform: uppercase; }
+    .eyebrow::before { width: 24px; height: 1px; background: currentColor; content: ""; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 520px; margin-bottom: 19px; font-family: var(--serif); font-size: clamp(51px, 6.3vw, 78px); font-weight: 400; letter-spacing: -.065em; line-height: .96; }
+    h1 span { display: block; color: #4a9bc7; font-style: italic; }
+    .hero-description { max-width: 360px; margin-bottom: 25px; color: #666; font-size: 12px; line-height: 1.85; }
+    .button { display: inline-flex; min-height: 45px; align-items: center; justify-content: center; gap: 14px; padding: 0 16px; border: 1px solid var(--ink); background: var(--ink); color: white; font-size: 10px; font-weight: 700; transition: background .2s, color .2s, border-color .2s; }
+    .button:hover { border-color: var(--sky-dark); background: var(--sky); color: var(--ink); }
+    .button-light { border-color: #bac6d2; background: transparent; color: var(--ink); }
+    .button-light:hover { background: var(--ink); color: white; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 9px; }
+    .arrow { font-size: 16px; line-height: 1; }
+    .hero-photo { position: relative; min-height: 0; aspect-ratio: 1365 / 768; overflow: hidden; background: #111722; }
+    .hero-photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; }
+    .hero-photo::after { position: absolute; inset: 55% 0 0; background: linear-gradient(transparent, rgba(5,12,23,.68)); content: ""; pointer-events: none; }
+    .photo-caption { position: absolute; z-index: 1; right: 22px; bottom: 20px; left: 22px; display: flex; align-items: end; justify-content: space-between; color: white; }
+    .photo-caption strong { display: block; margin-bottom: 4px; font-family: var(--serif); font-size: 20px; font-weight: 400; }
+    .photo-caption span { color: #ddd; font-size: 9px; }
+    .photo-index { font-family: var(--serif); font-size: 14px; }
+
+    .class-strip { border-bottom: 1px solid var(--line); background: #fff; }
+    .class-strip { position: relative; overflow: hidden; background: #111722; color: white; }
+    .class-strip::after { position: absolute; top: -50px; right: 7%; width: 190px; height: 190px; border: 1px solid rgba(115,197,243,.18); border-radius: 50%; box-shadow: 0 0 0 22px rgba(115,197,243,.04), 0 0 0 48px rgba(115,197,243,.03); content: ""; pointer-events: none; }
+    .class-strip-inner { position: relative; z-index: 1; display: flex; min-height: 112px; align-items: center; justify-content: space-between; gap: 24px; }
+    .strip-lead { display: flex; flex: 0 0 auto; align-items: center; gap: 10px; color: #b7c4d2; font-size: 9px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+    .strip-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--sky); box-shadow: 0 0 0 4px rgba(115,197,243,.16), 0 0 14px rgba(115,197,243,.7); }
+    .class-chant { margin: 0; font-family: var(--serif); font-size: clamp(20px, 3vw, 31px); letter-spacing: -.025em; }
+    .class-chant strong { color: var(--sky); font-weight: 500; font-style: italic; }
+    .chant-star { color: var(--sky); font-size: 25px; }
+
+    section { padding: 82px 0; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 25px; margin-bottom: 30px; }
+    .section-heading .eyebrow { margin-bottom: 12px; }
+    h2 { margin-bottom: 0; font-family: var(--serif); font-size: clamp(37px, 4.5vw, 54px); font-weight: 400; letter-spacing: -.055em; line-height: 1.03; }
+    .section-note { max-width: 350px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.85; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 70px; }
+    .about-visual { position: relative; min-height: 365px; overflow: hidden; background: #ccc url("https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1100&q=85") center / cover no-repeat; filter: grayscale(1); }
+    .visual-tag { position: absolute; top: 17px; left: 17px; padding: 9px 11px; background: white; font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .visual-caption { position: absolute; right: 18px; bottom: 17px; color: white; font-family: var(--serif); font-size: 19px; text-shadow: 0 1px 5px #333; }
+    .about-copy .eyebrow { margin-bottom: 15px; }
+    .about-copy h2 { margin-bottom: 18px; }
+    .about-copy p { margin-bottom: 14px; color: #666; font-size: 12px; line-height: 1.9; }
+    .values { display: grid; grid-template-columns: 1fr 1fr; gap: 11px 16px; margin: 23px 0 25px; }
+    .value { display: flex; align-items: center; gap: 9px; font-size: 10px; font-weight: 700; }
+    .value-mark { display: grid; width: 26px; height: 26px; place-items: center; border: 1px solid #c5e7f8; background: #edf8fe; color: var(--sky-dark); font-family: var(--serif); font-size: 11px; }
+    .text-link { display: inline-flex; align-items: center; gap: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--ink); font-size: 10px; font-weight: 750; }
+
+    .stories-section { padding: 0 0 78px; }
+    .stories-banner {
+      position: relative;
+      overflow: hidden;
+      padding: 47px 0 43px;
+      background-color: #111722;
+      background-image: radial-gradient(circle at 12% 24%, rgba(255,255,255,.5) 0 1px, transparent 1.7px), radial-gradient(circle at 72% 18%, rgba(115,197,243,.55) 0 1px, transparent 1.8px), radial-gradient(circle at 91% 66%, rgba(255,255,255,.4) 0 1px, transparent 1.7px), radial-gradient(ellipse at 82% 4%, rgba(38,113,158,.32), transparent 42%);
+      background-size: 180px 150px, 230px 190px, 270px 210px, auto;
+      color: white;
+    }
+    .stories-banner .eyebrow { margin-bottom: 12px; color: var(--sky); }
+    .stories-banner h2 { margin-bottom: 10px; font-family: var(--sans); font-size: clamp(35px, 4vw, 47px); font-weight: 700; letter-spacing: -.05em; }
+    .stories-banner p:last-child { margin: 0; color: #c3ceda; font-size: 12px; }
+    .stories-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 32px; padding-top: 35px; }
+    .story-sidebar { min-width: 0; padding-right: 22px; border-right: 1px solid var(--line); }
+    .story-sidebar h3 { margin-bottom: 13px; color: #8793a1; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; }
+    .category-list { display: grid; gap: 4px; }
+    .category-button { display: flex; min-height: 35px; align-items: center; justify-content: space-between; padding: 0 10px; border: 1px solid transparent; background: transparent; color: #47515d; text-align: left; font-size: 10px; cursor: pointer; }
+    .category-button:hover { background: #edf8fe; }
+    .category-button[aria-pressed="true"] { border-color: var(--sky-dark); background: #f0f9fe; color: #14577d; font-weight: 700; }
+    .category-button[aria-pressed="true"]::after { width: 6px; height: 6px; border-radius: 50%; background: var(--sky-dark); content: ""; }
+    .story-main { min-width: 0; }
+    .story-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 0 17px; border-bottom: 1px solid var(--line); }
+    .story-count { color: var(--muted); font-size: 10px; }
+    .story-search { display: flex; width: min(250px, 55%); min-height: 37px; align-items: center; gap: 9px; padding: 0 12px; border: 1px solid var(--line); border-radius: 99px; background: white; color: var(--muted); }
+    .story-search:focus-within { border-color: var(--sky-dark); box-shadow: 0 0 0 3px #dff3fd; }
+    .story-search input { width: 100%; border: 0; outline: 0; background: transparent; color: var(--ink); font: inherit; font-size: 10px; }
+    .story-search input::placeholder { color: #8793a1; }
+    .story-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 25px 20px; padding-top: 22px; }
+    .story-card[hidden] { display: none; }
+    .story-image { position: relative; display: block; aspect-ratio: 1.52; overflow: hidden; border-radius: 9px; background: #d7e1e8; }
+    .story-image img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.35); transition: transform .35s, filter .35s; }
+    .story-card:hover .story-image img { transform: scale(1.04); filter: grayscale(0); }
+    .story-badge { position: absolute; top: 10px; left: 10px; padding: 6px 9px; border-radius: 99px; background: rgba(248,250,252,.95); color: #236d96; font-size: 8px; font-weight: 750; letter-spacing: .06em; text-transform: uppercase; }
+    .story-meta { display: flex; flex-wrap: wrap; gap: 7px; margin: 12px 0 8px; color: #8390a0; font-size: 8px; }
+    .story-card h3 { margin-bottom: 7px; font-size: 13px; line-height: 1.45; }
+    .story-card p { margin-bottom: 10px; color: var(--muted); font-size: 9px; line-height: 1.7; }
+    .story-card .text-link { gap: 7px; padding-bottom: 0; border: 0; color: var(--sky-dark); font-size: 9px; }
+    .story-empty { display: none; padding: 45px 10px; color: var(--muted); text-align: center; font-size: 12px; }
+    .story-empty.visible { display: block; }
+
+    .moments-section { padding-top: 78px; }
+    .moment-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: 190px 190px; gap: 12px; }
+    .moment { position: relative; display: flex; min-height: 150px; flex-direction: column; justify-content: end; overflow: hidden; background: #d6d6d4; cursor: pointer; }
+    .moment:first-child { grid-row: span 2; }
+    .moment:nth-child(2) { background: #c8d6e0; }
+    .moment:nth-child(3) { background: #e2e8ed; }
+    .moment:nth-child(4) { background: #c4cbd2; }
+    .moment:nth-child(5) { background: #d5e5ee; }
+    .moment-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); opacity: 0; transition: opacity .2s; }
+    .moment.has-photo .moment-photo { opacity: 1; }
+    .photo-input { position: absolute; z-index: 4; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+    .moment-placeholder { position: absolute; inset: 0; display: grid; place-items: center; color: rgba(0,0,0,.24); font-family: var(--serif); font-size: 55px; }
+    .moment:first-child .moment-placeholder { font-size: 90px; }
+    .moment .photo-prompt { position: absolute; z-index: 2; top: 50%; left: 50%; display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid rgba(0,0,0,.28); border-radius: 50%; background: rgba(255,255,255,.75); color: var(--ink); font-size: 22px; transform: translate(-50%,-50%); }
+    .moment.has-photo .photo-prompt { opacity: 0; }
+    .moment::after { position: absolute; z-index: 1; inset: 45% 0 0; background: linear-gradient(transparent, rgba(0,0,0,.68)); content: ""; opacity: 0; transition: opacity .2s; pointer-events: none; }
+    .moment.has-photo::after { opacity: 1; }
+    .moment-label, .moment strong { position: relative; z-index: 2; margin-right: 15px; margin-left: 15px; }
+    .moment-label { margin-bottom: 5px; color: #555; font-size: 8px; font-weight: 750; letter-spacing: .14em; }
+    .moment strong { max-width: 220px; margin-bottom: 15px; font-family: var(--serif); font-size: 17px; font-weight: 400; }
+    .moment.has-photo .moment-label, .moment.has-photo strong { color: white; text-shadow: 0 1px 5px rgba(0,0,0,.4); }
+    .moment:focus-within { outline: 2px solid var(--ink); outline-offset: 3px; }
+    .moments-help { margin: 13px 0 0; color: var(--muted); font-size: 9px; }
+
+    .closing { padding: 0 0 68px; }
+    .closing-card { display: flex; align-items: center; justify-content: space-between; gap: 25px; padding: 27px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .closing-card h2 { font-size: clamp(30px, 4vw, 43px); }
+    .closing-card p { margin: 8px 0 0; color: var(--muted); font-size: 10px; }
+    footer { border-top: 1px solid var(--line); }
+    .footer-inner { display: flex; min-height: 72px; align-items: center; justify-content: space-between; gap: 16px; color: var(--muted); font-size: 9px; }
+    .footer-inner strong { color: var(--ink); font-family: var(--serif); font-size: 12px; font-weight: 500; }
+
+    @media (max-width: 800px) {
+      .hero-grid { grid-template-columns: 1fr 1fr; min-height: 0; }
+      .hero-copy { padding-left: 8%; }
+      .about-grid { gap: 35px; }
+      .about-visual { min-height: 320px; }
+      .profile-values { gap: 10px; }
+      .profile-value { min-height: 225px; padding: 16px; }
+      .teacher-section { padding: 28px 22px; }
+      .teacher-grid { gap: 26px; }
+      .profile-mission { gap: 25px; }
+      .login-layout { gap: 30px; }
+      .login-card { padding: 25px; }
+    }
+    @media (max-width: 800px) {
+      .menu-toggle { display: block; }
+      .nav-actions { display: none; }
+      .nav-links { position: absolute; top: 100%; right: 0; left: 0; display: none; flex-direction: column; align-items: stretch; gap: 0; padding: 6px 17px 14px; border-bottom: 1px solid var(--line); background: white; }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 13px 3px; border-bottom: 1px solid #eee; }
+      .nav-links a:last-child { border: 0; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 34px, 500px); }
+      .school-line-inner { min-height: 31px; font-size: 7px; }
+      .school-line-inner > span:last-child { display: none; }
+      .nav { min-height: 67px; }
+      .brand-mark { width: 40px; height: 40px; flex-basis: 40px; }
+      .brand-copy strong { font-size: 15px; }
+      .brand-copy span { font-size: 8px; }
+      .hero { padding-top: 13px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-copy { min-height: 380px; padding: 43px 24px; }
+      h1 { max-width: 450px; font-size: clamp(54px, 15vw, 73px); }
+      .hero-description { max-width: 340px; }
+      .hero-photo { min-height: 0; }
+      .class-strip-inner { min-height: 120px; align-items: start; flex-direction: column; justify-content: center; gap: 12px; padding: 20px 0; }
+      .class-chant { max-width: 330px; font-size: clamp(20px, 6vw, 26px); line-height: 1.25; }
+      .chant-star { position: absolute; right: 5px; bottom: 20px; font-size: 20px; }
+      section { padding: 62px 0; }
+      .section-heading { align-items: start; flex-direction: column; gap: 13px; margin-bottom: 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 25px; }
+      .about-visual { min-height: 300px; }
+      .login-page { min-height: calc(100vh - 170px); padding: 39px 0 55px; }
+      .login-layout { grid-template-columns: 1fr; gap: 25px; }
+      .login-intro h1 { font-size: 44px; }
+      .login-card { padding: 23px 20px; }
+      .blank-page { min-height: calc(100vh - 170px); }
+      .home-page { padding: 34px 0 54px; }
+      .profile-page { padding-bottom: 55px; }
+      .profile-hero { padding: 38px 0 34px; }
+      .profile-content { padding-top: 38px; }
+      .profile-values { grid-template-columns: 1fr; gap: 10px; }
+      .profile-value { min-height: 160px; padding: 21px; }
+      .profile-value-number { top: 15px; left: 20px; }
+      .teacher-section { margin-top: 42px; padding: 19px; }
+      .teacher-grid, .profile-mission { grid-template-columns: 1fr; gap: 22px; }
+      .teacher-portrait { min-height: 230px; }
+      .teacher-copy h2 { font-size: 37px; }
+      .profile-mission { margin-top: 43px; }
+      .profile-chant { margin-top: 43px; padding: 25px 20px; }
+      .about-copy h2 { font-size: 45px; }
+      .stories-layout { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+      .story-sidebar { padding: 0 0 15px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .category-list { display: flex; overflow-x: auto; gap: 7px; padding-bottom: 4px; }
+      .category-button { min-width: max-content; min-height: 33px; border-color: var(--line); border-radius: 99px; padding: 0 11px; }
+      .category-button[aria-pressed="true"] { border-color: var(--sky-dark); }
+      .category-button[aria-pressed="true"]::after { display: none; }
+      .story-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 13px; }
+      .moment-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 210px 150px 150px; gap: 8px; }
+      .moment:first-child { grid-row: auto; grid-column: 1 / -1; }
+      .moment-label, .moment strong { margin-right: 11px; margin-left: 11px; }
+      .moment strong { font-size: 15px; }
+      .closing-card { align-items: start; flex-direction: column; padding: 23px 0; }
+      .footer-inner { align-items: start; flex-direction: column; justify-content: center; padding: 16px 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="school-line">
+    <div class="wrap school-line-inner">
+      <span class="school-name"><img class="school-logo" src="assets/logo-mosa.png" alt="Logo MOSA"> SMA Negeri Modal Bangsa</span>
+      <span>Ruang digital kelas X-1</span>
+    </div>
+  </div>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#beranda" aria-label="Clarus kelas X-1, ke beranda">
+        <span class="brand-mark" aria-hidden="true">C.</span>
+        <span class="brand-copy"><strong>clarus</strong><span>Kelas X-1 · Modal Bangsa</span></span>
+      </a>
+      <nav class="nav-links" id="nav-links" aria-label="Navigasi utama">
+        <a href="#beranda">Beranda</a>
+        <a href="#struktur">Struktur Kelas</a>
+        <a href="#profil">Profil</a>
+        <a href="#agenda">Cerita</a>
+        <a href="#momen">Momen</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="nav-cta" href="#profil">Jelajahi Clarus <span class="arrow" aria-hidden="true">↗</span></a>
+        <a class="nav-cta nav-login" href="#login">Login <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+      <button class="menu-toggle" type="button" aria-label="Buka navigasi" aria-expanded="false" aria-controls="nav-links">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-view is-active home-page" data-page="beranda" id="beranda" aria-label="Beranda">
+      <div class="wrap profile-content">
+        <div class="section-heading">
+          <div><p class="eyebrow">Pegangan kami</p><h1>Belajar dengan tujuan.</h1></div>
+          <p class="section-note">Di Clarus, ilmu pengetahuan dan karakter tumbuh berdampingan. Kami ingin menjadi kelas yang tekun, peduli, dan berani membawa kebaikan.</p>
+        </div>
+        <div class="profile-values">
+          <article class="profile-value"><span class="profile-value-number">01 — KARAKTER</span><h3>Berpijak pada iman dan akhlak</h3><p>Menghormati perbedaan, menjaga sikap, dan membiasakan diri berbuat baik.</p></article>
+          <article class="profile-value"><span class="profile-value-number">02 — PENGETAHUAN</span><h3>Rasa ingin tahu dan budaya belajar</h3><p>Terus bertanya, berdiskusi, dan berusaha memberikan yang terbaik dalam belajar.</p></article>
+          <article class="profile-value"><span class="profile-value-number">03 — KEBERSAMAAN</span><h3>Berani tumbuh dan berkontribusi</h3><p>Belajar memimpin diri sendiri, bekerja sama, dan mengambil bagian di lingkungan sekitar.</p></article>
+        </div>
+        <section class="teacher-section" aria-labelledby="teacher-heading">
+          <div class="teacher-grid">
+            <div class="teacher-portrait" role="img" aria-label="Tempat foto wali kelas X-1">
+              <span class="teacher-initial" aria-hidden="true">X-1</span>
+              <span class="teacher-caption">Foto wali kelas akan ditambahkan</span>
+            </div>
+            <div class="teacher-copy">
+              <p class="eyebrow">Sambutan wali kelas</p>
+              <h2 id="teacher-heading">Bertumbuh bersama, melangkah lebih jauh.</h2>
+              <p>Selamat datang di ruang digital Clarus, kelas X-1 SMA Negeri Modal Bangsa. Setiap murid memiliki potensi dan jalan tumbuh yang berbeda. Tugas kita adalah terus belajar, saling menghargai, dan memberi ruang agar setiap potensi itu berkembang.</p>
+              <p>Semoga kebersamaan di kelas ini menjadi bekal untuk meraih cita-cita sekaligus menghadirkan manfaat bagi orang lain. Mari jalani prosesnya dengan rasa ingin tahu, disiplin, dan hati yang saling mendukung.</p>
+              <strong class="teacher-name">Nama wali kelas</strong>
+              <span class="teacher-role">Wali Kelas X-1 · SMA Negeri Modal Bangsa</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+    <section class="page-view blank-page" data-page="struktur" id="struktur" aria-label="Struktur kelas"></section>
+
+    <section class="page-view login-page" data-page="login" id="login" aria-labelledby="login-heading">
+      <div class="wrap login-layout">
+        <div class="login-intro">
+          <p class="eyebrow">Area anggota · Clarus X-1</p>
+          <h1 id="login-heading">Senang bertemu lagi.</h1>
+          <p>Masuk dengan username dan kode akses yang dibagikan khusus untuk anggota kelas Clarus.</p>
+        </div>
+        <form class="login-card" id="login-form">
+          <h2>Masuk ke Clarus</h2>
+          <p class="login-card-intro">Gunakan akun yang diberikan oleh pengelola kelas.</p>
+          <div class="login-field">
+            <label for="login-email">Username</label>
+            <input id="login-email" name="username" type="text" autocomplete="username" placeholder="contoh: clarus01" required>
+          </div>
+          <div class="login-field">
+            <label for="login-password">Kode akses</label>
+            <input id="login-password" name="code" type="password" autocomplete="current-password" placeholder="Masukkan kode akses" required>
+          </div>
+          <button class="button login-submit" type="submit">Masuk <span class="arrow" aria-hidden="true">→</span></button>
+          <p class="login-notice">Jaga kode aksesmu dan jangan bagikan kepada orang lain. Server memeriksa akun; kode tidak disimpan di browser.</p>
+          <p class="login-status" id="login-status" role="status" aria-live="polite"></p>
+          <div class="login-account" id="login-account" hidden>
+            Kamu masuk sebagai <strong id="login-username"></strong>.
+            <button class="button login-logout" id="login-logout" type="button">Keluar</button>
+          </div>
+          <div class="chat-lock">
+            <span class="chat-lock-icon" aria-hidden="true">⌑</span>
+            <div><strong>Chat kelas · belum tersedia</strong><p>Login akun kelas sudah aktif, tetapi fitur chat belum dibuat.</p></div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <div class="profile-page page-view" data-page="profil" id="profil">
+      <section class="hero">
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">SMA Negeri Modal Bangsa · Kelas X-1</p>
+            <h1>Satu kelas,<span>sejuta cerita.</span></h1>
+            <p class="hero-description">Kami Clarus: teman belajar, rekan bertumbuh, dan keluarga kecil yang saling menguatkan di setiap langkah.</p>
+            <div class="hero-actions">
+              <a class="button" href="#beranda">Lihat pegangan kelas <span class="arrow" aria-hidden="true">↗</span></a>
+              <a class="button button-light" href="#agenda">Lihat cerita</a>
+            </div>
+          </div>
+          <div class="hero-photo">
+            <img src="assets/clarus-class.jpg" alt="Kebersamaan siswa kelas X-1 SMA Negeri Modal Bangsa" fetchpriority="high">
+            <div class="photo-caption"><div><strong>Clarus · X-1</strong><span>Belajar bareng, tumbuh bareng.</span></div><span class="photo-index">01 / 04</span></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="class-strip">
+        <div class="wrap class-strip-inner">
+          <div class="strip-lead"><span class="strip-dot" aria-hidden="true"></span>Yel-yel Clarus</div>
+          <p class="class-chant">“Si bagus main arus,<br><strong>Clarus terang terus!!!!</strong>”</p>
+          <span class="chant-star" aria-hidden="true">✦</span>
+        </div>
+      </div>
+
+      <div class="wrap profile-content">
+        <div class="profile-mission">
+          <div><p class="eyebrow">Arah perjalanan</p><h2>Menjadi kelas yang membawa arti.</h2></div>
+          <div class="mission-list">
+            <div class="mission-item"><span>01</span><p>Membangun kebiasaan belajar yang tekun, jujur, dan bertanggung jawab.</p></div>
+            <div class="mission-item"><span>02</span><p>Menciptakan suasana kelas yang aman, saling menghormati, dan mendukung setiap murid.</p></div>
+            <div class="mission-item"><span>03</span><p>Mengembangkan potensi melalui karya, pengalaman, dan keberanian mencoba hal baru.</p></div>
+          </div>
+        </div>
+
+        <div class="profile-chant">
+          <div class="strip-lead"><span class="strip-dot" aria-hidden="true"></span>Suara kebanggaan Clarus</div>
+          <p class="class-chant">“Si bagus main arus,<br><strong>Clarus terang terus!!!!</strong>”</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="stories-section page-view" data-page="agenda" id="agenda">
+      <div class="stories-banner">
+        <div class="wrap">
+          <p class="eyebrow">Ruang cerita · Clarus X-1</p>
+          <h2>Semua Cerita</h2>
+          <p>Kabar, kegiatan, dan potongan perjalanan kelas kami.</p>
+        </div>
+      </div>
+      <div class="wrap stories-layout">
+        <aside class="story-sidebar" aria-label="Kategori cerita">
+          <h3>Kategori cerita</h3>
+          <div class="category-list">
+            <button class="category-button" type="button" data-category="semua" aria-pressed="true">Semua Cerita</button>
+            <button class="category-button" type="button" data-category="kegiatan" aria-pressed="false">Kegiatan Kelas</button>
+            <button class="category-button" type="button" data-category="belajar" aria-pressed="false">Belajar</button>
+            <button class="category-button" type="button" data-category="kebersamaan" aria-pressed="false">Kebersamaan</button>
+            <button class="category-button" type="button" data-category="karya" aria-pressed="false">Karya</button>
+          </div>
+        </aside>
+        <div class="story-main">
+          <div class="story-toolbar">
+            <span class="story-count" aria-live="polite">6 cerita</span>
+            <label class="story-search"><span aria-hidden="true">⌕</span><input type="search" id="story-search" placeholder="Cari cerita..." aria-label="Cari cerita"></label>
+          </div>
+          <div class="story-grid">
+            <article class="story-card" data-category="kegiatan" data-search="hari pertama kenalan teman baru kelas">
+              <a class="story-image" href="#momen" aria-label="Lihat album hari pertama">
+                <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=800&q=80" alt="Suasana belajar bersama di kelas" loading="lazy">
+                <span class="story-badge">Kegiatan kelas</span>
+              </a>
+              <div class="story-meta"><span>Awal perjalanan</span><span>·</span><span>Clarus X-1</span></div>
+              <h3>Hari pertama, cerita pertama</h3>
+              <p>Awal perkenalan dan langkah pertama kami sebagai satu kelas.</p>
+              <a class="text-link" href="#momen">Lihat momen <span aria-hidden="true">›</span></a>
+            </article>
+            <article class="story-card" data-category="belajar" data-search="belajar kelompok diskusi tugas saling bantu">
+              <a class="story-image" href="#momen" aria-label="Lihat album belajar bersama">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" alt="Teman-teman berdiskusi dan belajar bersama" loading="lazy">
+                <span class="story-badge">Belajar</span>
+              </a>
+              <div class="story-meta"><span>Di ruang kelas</span><span>·</span><span>Belajar bersama</span></div>
+              <h3>Belajar lebih seru kalau bersama</h3>
+              <p>Saling bertukar ide, berdiskusi, dan membantu teman memahami pelajaran.</p>
+              <a class="text-link" href="#momen">Lihat momen <span aria-hidden="true">›</span></a>
+            </article>
+            <article class="story-card" data-category="kebersamaan" data-search="kebersamaan teman tawa cerita">
+              <a class="story-image" href="#momen" aria-label="Lihat album kebersamaan">
+                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="Sekelompok teman menghabiskan waktu bersama" loading="lazy">
+                <span class="story-badge">Kebersamaan</span>
+              </a>
+              <div class="story-meta"><span>Waktu bersama</span><span>·</span><span>Teman sekelas</span></div>
+              <h3>Momen kecil yang jadi kenangan</h3>
+              <p>Obrolan ringan dan tawa sederhana yang membuat hari di sekolah berkesan.</p>
+              <a class="text-link" href="#momen">Lihat momen <span aria-hidden="true">›</span></a>
+            </article>
+            <article class="story-card" data-category="karya" data-search="karya proyek ide kreativitas kolaborasi">
+              <a class="story-image" href="#momen" aria-label="Lihat album karya kelas">
+                <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=800&q=80" alt="Perlengkapan belajar dan karya siswa" loading="lazy">
+                <span class="story-badge">Karya</span>
+              </a>
+              <div class="story-meta"><span>Ide jadi nyata</span><span>·</span><span>Kolaborasi</span></div>
+              <h3>Satu ide, banyak tangan</h3>
+              <p>Menggabungkan gagasan dan kreativitas untuk menghasilkan karya bersama.</p>
+              <a class="text-link" href="#momen">Lihat momen <span aria-hidden="true">›</span></a>
+            </article>
+            <article class="story-card" data-category="kegiatan" data-search="kegiatan sekolah hari spesial pengalaman">
+              <a class="story-image" href="#momen" aria-label="Lihat album kegiatan sekolah">
+                <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80" alt="Kegiatan siswa di lingkungan sekolah" loading="lazy">
+                <span class="story-badge">Kegiatan kelas</span>
+              </a>
+              <div class="story-meta"><span>Di sekolah</span><span>·</span><span>Pengalaman baru</span></div>
+              <h3>Belajar dari setiap pengalaman</h3>
+              <p>Setiap kegiatan memberi kesempatan untuk mencoba dan tumbuh bersama.</p>
+              <a class="text-link" href="#momen">Lihat momen <span aria-hidden="true">›</span></a>
+            </article>
+            <article class="story-card" data-category="kebersamaan" data-search="saling mendukung teman semangat kebersamaan">
+              <a class="story-image" href="#momen" aria-label="Lihat cerita saling mendukung">
+                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=80" alt="Teman-teman berkumpul dan saling mendukung" loading="lazy">
+                <span class="story-badge">Kebersamaan</span>
+              </a>
+              <div class="story-meta"><span>Clarus</span><span>·</span><span>Satu kelas</span></div>
+              <h3>Selalu ada teman untuk mendukung</h3>
+              <p>Kami percaya perjalanan akan terasa lebih ringan saat saling menguatkan.</p>
+              <a class="text-link" href="#momen">Lihat momen <span aria-hidden="true">›</span></a>
+            </article>
+          </div>
+          <p class="story-empty" role="status">Cerita tidak ditemukan. Coba kata kunci atau kategori lain.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="moments-section page-view" data-page="momen" id="momen">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><p class="eyebrow">Album kelas · X-1</p><h2>Potongan cerita Clarus.</h2></div>
+          <p class="section-note">Setiap foto menyimpan cerita. Tambahkan foto pilihanmu ke kotak album untuk melihat pratinjau.</p>
+        </div>
+        <div class="moment-grid">
+          <label class="moment"><input class="photo-input" type="file" accept="image/*" aria-label="Pilih foto kegiatan kelas"><img class="moment-photo" alt=""><span class="moment-placeholder" aria-hidden="true">01</span><span class="photo-prompt" aria-hidden="true">+</span><span class="moment-label">01 — KEGIATAN KELAS</span><strong>Belajar, tertawa, bertumbuh.</strong></label>
+          <label class="moment"><input class="photo-input" type="file" accept="image/*" aria-label="Pilih foto kebersamaan"><img class="moment-photo" alt=""><span class="moment-placeholder" aria-hidden="true">02</span><span class="photo-prompt" aria-hidden="true">+</span><span class="moment-label">02 — KEBERSAMAAN</span><strong>Hari penuh cerita.</strong></label>
+          <label class="moment"><input class="photo-input" type="file" accept="image/*" aria-label="Pilih foto kegiatan sekolah"><img class="moment-photo" alt=""><span class="moment-placeholder" aria-hidden="true">03</span><span class="photo-prompt" aria-hidden="true">+</span><span class="moment-label">03 — DI SEKOLAH</span><strong>Sudut favorit kita.</strong></label>
+          <label class="moment"><input class="photo-input" type="file" accept="image/*" aria-label="Pilih foto karya kelas"><img class="moment-photo" alt=""><span class="moment-placeholder" aria-hidden="true">04</span><span class="photo-prompt" aria-hidden="true">+</span><span class="moment-label">04 — KARYA</span><strong>Ide jadi nyata.</strong></label>
+          <label class="moment"><input class="photo-input" type="file" accept="image/*" aria-label="Pilih foto teman-teman"><img class="moment-photo" alt=""><span class="photo-prompt" aria-hidden="true">+</span><span class="moment-label">05 — TEMAN</span><strong>Selalu ada cerita baru.</strong></label>
+        </div>
+        <p class="moments-help">Pilih kotak album untuk melihat foto di halaman ini. Foto tidak diunggah atau disimpan ke server.</p>
+      </div>
+    </section>
+
+    <div class="closing page-view" data-page="profil">
+      <div class="wrap closing-card">
+        <div><h2>Ruang kecil. Cerita besar.</h2><p>Clarus · Kelas X-1 SMA Negeri Modal Bangsa.</p></div>
+        <a class="button" href="#beranda">Kembali ke atas <span class="arrow" aria-hidden="true">↑</span></a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span><strong>Clarus</strong> · Kelas X-1 · SMA Negeri Modal Bangsa</span>
+      <span>Dibuat dengan semangat kebersamaan</span>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector("#nav-links");
+    const pageViews = [...document.querySelectorAll(".page-view")];
+    const pageLinks = [...navigation.querySelectorAll('a[href^="#"]')];
+    const pageIds = new Set(["beranda", "struktur", "profil", "agenda", "momen", "login"]);
+
+    const showPage = (pageId, shouldScroll = true) => {
+      const activePage = pageIds.has(pageId) ? pageId : "beranda";
+      pageViews.forEach((view) => {
+        const isActive = view.dataset.page === activePage;
+        view.classList.toggle("is-active", isActive);
+        view.setAttribute("aria-hidden", String(!isActive));
+      });
+      pageLinks.forEach((link) => {
+        if (link.hash === `#${activePage}`) link.setAttribute("aria-current", "page");
+        else link.removeAttribute("aria-current");
+      });
+      if (shouldScroll) window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    showPage(window.location.hash.slice(1), false);
+
+    document.addEventListener("click", (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link || !(link instanceof HTMLAnchorElement)) return;
+      const pageId = link.hash.slice(1);
+      if (!pageIds.has(pageId)) return;
+
+      event.preventDefault();
+      if (window.location.hash !== link.hash) history.pushState(null, "", link.hash);
+      showPage(pageId);
+    });
+
+    window.addEventListener("popstate", () => showPage(window.location.hash.slice(1)));
+    window.addEventListener("hashchange", () => showPage(window.location.hash.slice(1)));
+
+    const loginForm = document.querySelector("#login-form");
+    const loginStatus = document.querySelector("#login-status");
+    const loginAccount = document.querySelector("#login-account");
+    const loginUsername = document.querySelector("#login-username");
+    const loginCode = document.querySelector("#login-password");
+    const showLoginSession = (username) => {
+      loginForm.querySelectorAll(".login-field, .login-submit, .login-notice").forEach((element) => {
+        element.hidden = Boolean(username);
+      });
+      loginAccount.hidden = !username;
+      loginUsername.textContent = username ?? "";
+      loginStatus.textContent = "";
+    };
+
+    const checkLoginSession = async () => {
+      try {
+        const response = await fetch("/api/session", { credentials: "same-origin" });
+        if (!response.ok) throw new Error("Session check failed");
+        const result = await response.json();
+        showLoginSession(result.authenticated ? result.username : "");
+      } catch {
+        loginStatus.textContent = "Server login belum aktif. Jalankan start.bat atau npm start, lalu buka http://127.0.0.1:3000.";
+      }
+    };
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      loginStatus.textContent = "Memeriksa akun...";
+      try {
+        const response = await fetch("/api/login", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: loginForm.elements.username.value,
+            code: loginCode.value
+          })
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.message || "Username atau kode akses salah.");
+        loginCode.value = "";
+        showLoginSession(result.username);
+      } catch (error) {
+        loginStatus.textContent = error instanceof TypeError
+          ? "Server login belum aktif. Jalankan start.bat atau npm start, lalu buka http://127.0.0.1:3000."
+          : error.message;
+      }
+    });
+
+    document.querySelector("#login-logout").addEventListener("click", async () => {
+      try {
+        const response = await fetch("/api/logout", { method: "POST", credentials: "same-origin" });
+        if (!response.ok) throw new Error("Gagal keluar dari akun.");
+        showLoginSession("");
+        loginStatus.textContent = "Kamu sudah keluar dari akun.";
+      } catch {
+        loginStatus.textContent = "Server tidak dapat dihubungi. Muat ulang halaman untuk mencoba lagi.";
+      }
+    });
+
+    checkLoginSession();
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = navigation.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Tutup navigasi" : "Buka navigasi");
+      menuButton.textContent = isOpen ? "×" : "☰";
+    });
+
+    navigation.addEventListener("click", (event) => {
+      if (event.target instanceof HTMLAnchorElement) {
+        navigation.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Buka navigasi");
+        menuButton.textContent = "☰";
+      }
+    });
+
+    const categoryButtons = [...document.querySelectorAll(".category-button")];
+    const storyCards = [...document.querySelectorAll(".story-card")];
+    const storySearch = document.querySelector("#story-search");
+    const storyCount = document.querySelector(".story-count");
+    const storyEmpty = document.querySelector(".story-empty");
+    let activeCategory = "semua";
+
+    const updateStories = () => {
+      const query = storySearch.value.trim().toLocaleLowerCase("id");
+      let visibleCount = 0;
+
+      storyCards.forEach((card) => {
+        const categoryMatches = activeCategory === "semua" || card.dataset.category === activeCategory;
+        const searchableText = `${card.dataset.search} ${card.textContent}`.toLocaleLowerCase("id");
+        const queryMatches = !query || searchableText.includes(query);
+        const isVisible = categoryMatches && queryMatches;
+        card.hidden = !isVisible;
+        if (isVisible) visibleCount += 1;
+      });
+
+      storyCount.textContent = `${visibleCount} cerita`;
+      storyEmpty.classList.toggle("visible", visibleCount === 0);
+    };
+
+    categoryButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        activeCategory = button.dataset.category;
+        categoryButtons.forEach((categoryButton) => {
+          categoryButton.setAttribute("aria-pressed", String(categoryButton === button));
+        });
+        updateStories();
+      });
+    });
+
+    storySearch.addEventListener("input", updateStories);
+
+    document.querySelectorAll(".photo-input").forEach((input) => {
+      input.addEventListener("change", () => {
+        const file = input.files[0];
+        if (!file) return;
+        if (!file.type.startsWith("image/")) {
+          alert("Silakan pilih file gambar.");
+          input.value = "";
+          return;
+        }
+
+        const slot = input.closest(".moment");
+        const image = slot.querySelector(".moment-photo");
+        const previewUrl = URL.createObjectURL(file);
+        image.onload = () => {
+          if (image.dataset.previewUrl) URL.revokeObjectURL(image.dataset.previewUrl);
+          image.dataset.previewUrl = previewUrl;
+          slot.classList.add("has-photo");
+          input.value = "";
+        };
+        image.onerror = () => {
+          URL.revokeObjectURL(previewUrl);
+          if (image.dataset.previewUrl) URL.revokeObjectURL(image.dataset.previewUrl);
+          delete image.dataset.previewUrl;
+          image.removeAttribute("src");
+          image.alt = "";
+          slot.classList.remove("has-photo");
+          input.value = "";
+          alert("Foto tidak dapat dibuka. Silakan pilih gambar lain.");
+        };
+        image.src = previewUrl;
+        image.alt = file.name;
+      });
+    });
+  </script>
+</body>
+</html>
