@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: clarus-api
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/session
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CORS_ORIGINS
+        sync: false
+      - key: CLARUS_USERS_JSON
+        sync: false

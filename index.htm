@@ -102,28 +102,26 @@
     .profile-chant::after { position: absolute; top: -80px; right: 5%; width: 230px; height: 230px; border: 1px solid rgba(115,197,243,.19); border-radius: 50%; box-shadow: 0 0 0 24px rgba(115,197,243,.04), 0 0 0 52px rgba(115,197,243,.03); content: ""; }
     .profile-chant .strip-lead { margin-bottom: 12px; }
     .profile-chant .class-chant { position: relative; z-index: 1; font-size: clamp(22px, 3vw, 31px); }
-    .login-page { min-height: calc(100vh - 181px); padding: 64px 0 80px; }
-    .login-layout { display: grid; max-width: 930px; grid-template-columns: 1fr .9fr; align-items: center; gap: 62px; margin: 0 auto; }
-    .login-intro .eyebrow { margin-bottom: 15px; }
-    .login-intro h1 { margin-bottom: 15px; font-size: clamp(42px, 5vw, 60px); }
-    .login-intro > p:last-child { max-width: 390px; margin-bottom: 0; color: var(--muted); font-size: 12px; line-height: 1.85; }
-    .login-card { padding: 32px; border: 1px solid var(--line); background: white; box-shadow: 0 18px 50px rgba(17,23,34,.08); }
-    .login-card h2 { margin-bottom: 7px; font-family: var(--sans); font-size: 22px; font-weight: 700; letter-spacing: -.03em; }
-    .login-card-intro { margin-bottom: 24px; color: var(--muted); font-size: 10px; line-height: 1.7; }
-    .login-field { display: grid; gap: 7px; margin-bottom: 16px; }
-    .login-field label { font-size: 10px; font-weight: 700; }
-    .login-field input { width: 100%; min-height: 43px; padding: 0 12px; border: 1px solid var(--line); border-radius: 0; outline: 0; background: #fbfcfd; color: var(--ink); font: inherit; font-size: 11px; }
+    .login-page { min-height: calc(100vh - 181px); padding: 34px 0 80px; }
+    .login-layout { display: flex; justify-content: center; max-width: 620px; margin: 0 auto; }
+    .login-card { width: min(100%, 560px); padding: 28px 28px 18px; border: 1px solid #d9e1ea; background: #f3f5f7; box-shadow: none; }
+    .login-card h2 { margin-bottom: 10px; font-family: var(--sans); font-size: clamp(24px, 3.3vw, 33px); font-weight: 800; letter-spacing: -.04em; }
+    .login-card-intro { margin-bottom: 18px; color: #5d6773; font-size: 11px; line-height: 1.7; }
+    .login-field { display: grid; gap: 8px; margin-bottom: 16px; }
+    .login-field label { font-size: 12px; font-weight: 700; }
+    .login-field input { width: 100%; min-height: 44px; padding: 0 12px; border: 1px solid #cfd9e3; border-radius: 0; outline: 0; background: #f9fafb; color: var(--ink); font: inherit; font-size: 13px; }
     .login-field input:focus { border-color: var(--sky-dark); box-shadow: 0 0 0 3px #dff3fd; }
-    .login-submit { width: 100%; margin-top: 3px; cursor: pointer; }
-    .login-notice { margin: 15px 0 0; padding: 11px 12px; border-left: 2px solid var(--sky-dark); background: #eef8fd; color: #40586a; font-size: 9px; line-height: 1.65; }
-    .login-status { min-height: 18px; margin: 11px 0 0; color: #8a4c23; font-size: 10px; line-height: 1.6; }
-    .login-account { padding: 14px; border: 1px solid #c5e7f8; background: #edf8fe; }
+    .login-submit { width: 100%; min-height: 46px; margin-top: 3px; border-radius: 0; cursor: pointer; background: #0f1f2d; color: white; }
+    .login-submit:hover { border-color: #0f1f2d; background: #102a3d; color: white; }
+    .login-notice { margin: 16px 0 0; padding: 12px 14px; border: 1px solid #c6e1f3; background: #dff1fb; color: #4d677a; font-size: 11px; line-height: 1.6; }
+    .login-status { min-height: 18px; margin: 12px 0 0; color: #8a4c23; font-size: 11px; line-height: 1.6; }
+    .login-account { margin-top: 10px; padding: 12px 14px; border: 1px solid #c5e7f8; background: #edf8fe; color: #38556c; font-size: 12px; }
     .login-account strong { color: #1d5e83; }
     .login-logout { min-height: 36px; margin-top: 12px; cursor: pointer; }
-    .chat-lock { display: flex; align-items: start; gap: 12px; margin-top: 24px; padding-top: 19px; border-top: 1px solid var(--line); }
-    .chat-lock-icon { display: grid; width: 33px; height: 33px; flex: 0 0 33px; place-items: center; border: 1px solid #c5e7f8; background: #edf8fe; color: var(--sky-dark); font-size: 14px; }
-    .chat-lock strong { display: block; margin-bottom: 4px; font-size: 10px; }
-    .chat-lock p { margin: 0; color: var(--muted); font-size: 9px; line-height: 1.6; }
+    .chat-lock { display: flex; align-items: flex-start; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #d8e0e7; }
+    .chat-lock-icon { display: grid; width: 28px; height: 28px; flex: 0 0 28px; place-items: center; border: 1px solid #c9d9e7; background: #eef4f8; color: #607583; font-size: 13px; }
+    .chat-lock strong { display: block; margin-bottom: 4px; font-size: 11px; }
+    .chat-lock p { margin: 0; color: #5f6d7a; font-size: 10px; line-height: 1.6; }
     .hero { padding: 25px 0 0; }
     .hero-grid { display: grid; min-height: 515px; grid-template-columns: .92fr 1.08fr; background: linear-gradient(135deg, #e8eef5, #f8fafc 58%, #e8f4fb); }
     .hero-copy { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: start; justify-content: center; padding: 56px 10px 56px 9%; }
@@ -389,13 +387,8 @@
 
     <section class="page-view login-page" data-page="login" id="login" aria-labelledby="login-heading">
       <div class="wrap login-layout">
-        <div class="login-intro">
-          <p class="eyebrow">Area anggota · Clarus X-1</p>
-          <h1 id="login-heading">Senang bertemu lagi.</h1>
-          <p>Masuk dengan username dan kode akses yang dibagikan khusus untuk anggota kelas Clarus.</p>
-        </div>
         <form class="login-card" id="login-form">
-          <h2>Masuk ke Clarus</h2>
+          <h2 id="login-heading">Masuk ke Clarus</h2>
           <p class="login-card-intro">Gunakan akun yang diberikan oleh pengelola kelas.</p>
           <div class="login-field">
             <label for="login-email">Username</label>
@@ -413,7 +406,7 @@
             <button class="button login-logout" id="login-logout" type="button">Keluar</button>
           </div>
           <div class="chat-lock">
-            <span class="chat-lock-icon" aria-hidden="true">⌑</span>
+            <span class="chat-lock-icon" aria-hidden="true">☑</span>
             <div><strong>Chat kelas · belum tersedia</strong><p>Login akun kelas sudah aktif, tetapi fitur chat belum dibuat.</p></div>
           </div>
         </form>
@@ -587,6 +580,7 @@
     </div>
   </footer>
 
+  <script src="api-config.js"></script>
   <script>
     const menuButton = document.querySelector(".menu-toggle");
     const navigation = document.querySelector("#nav-links");
@@ -629,6 +623,13 @@
     const loginAccount = document.querySelector("#login-account");
     const loginUsername = document.querySelector("#login-username");
     const loginCode = document.querySelector("#login-password");
+    const apiBaseUrl = (window.CLARUS_API_BASE_URL || "").replace(/\/+$/, "");
+    const apiUrl = (pathname) => `${apiBaseUrl}${pathname}`;
+    const loginConnectionMessage = apiBaseUrl
+      ? "Server login belum dapat dihubungi. Periksa status API dan pengaturan CORS."
+      : window.location.hostname.endsWith("github.io")
+        ? "Server login belum dikonfigurasi. Atur variabel CLARUS_API_URL pada pengaturan repository GitHub."
+        : "Server login belum aktif. Jalankan start.bat atau npm start, lalu buka http://127.0.0.1:3000.";
     const showLoginSession = (username) => {
       loginForm.querySelectorAll(".login-field, .login-submit, .login-notice").forEach((element) => {
         element.hidden = Boolean(username);
@@ -640,12 +641,12 @@
 
     const checkLoginSession = async () => {
       try {
-        const response = await fetch("/api/session", { credentials: "same-origin" });
+        const response = await fetch(apiUrl("/api/session"), { credentials: "include" });
         if (!response.ok) throw new Error("Session check failed");
         const result = await response.json();
         showLoginSession(result.authenticated ? result.username : "");
       } catch {
-        loginStatus.textContent = "Server login belum aktif. Jalankan start.bat atau npm start, lalu buka http://127.0.0.1:3000.";
+        loginStatus.textContent = loginConnectionMessage;
       }
     };
 
@@ -653,9 +654,9 @@
       event.preventDefault();
       loginStatus.textContent = "Memeriksa akun...";
       try {
-        const response = await fetch("/api/login", {
+        const response = await fetch(apiUrl("/api/login"), {
           method: "POST",
-          credentials: "same-origin",
+          credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             username: loginForm.elements.username.value,
@@ -668,14 +669,14 @@
         showLoginSession(result.username);
       } catch (error) {
         loginStatus.textContent = error instanceof TypeError
-          ? "Server login belum aktif. Jalankan start.bat atau npm start, lalu buka http://127.0.0.1:3000."
+          ? loginConnectionMessage
           : error.message;
       }
     });
 
     document.querySelector("#login-logout").addEventListener("click", async () => {
       try {
-        const response = await fetch("/api/logout", { method: "POST", credentials: "same-origin" });
+        const response = await fetch(apiUrl("/api/logout"), { method: "POST", credentials: "include" });
         if (!response.ok) throw new Error("Gagal keluar dari akun.");
         showLoginSession("");
         loginStatus.textContent = "Kamu sudah keluar dari akun.";
